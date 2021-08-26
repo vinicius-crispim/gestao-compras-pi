@@ -28,6 +28,8 @@ public class Gerente implements Serializable {
     
     @OneToMany(mappedBy = "gerente")
     private List<Funcionario> funcionarios = new ArrayList<>();
+    @OneToMany(mappedBy = "gerente")
+    private List<CotacaoCompraItem> cotacaocompraitem = new ArrayList<>();
 	
     public Gerente() {}
     
@@ -85,6 +87,10 @@ public class Gerente implements Serializable {
 
 	public List<Funcionario> getFuncionarios() {
 		return funcionarios;
+	}
+
+	public List<CotacaoCompraItem> getCotacaocompraitem() {
+		return cotacaocompraitem;
 	}
 
 	@Override

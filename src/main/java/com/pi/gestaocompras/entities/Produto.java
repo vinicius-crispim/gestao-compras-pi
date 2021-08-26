@@ -2,10 +2,8 @@ package com.pi.gestaocompras.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,8 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.pi.gestaocompras.entities.pk.CotacaoCompraItemsPK;
 
 
 @Entity
@@ -34,9 +30,12 @@ public class Produto implements Serializable {
 
     @OneToMany(mappedBy = "produto")
     private List<CotacaoCompraItem> cotacaocompraitens = new ArrayList<>();
+
+    @OneToMany(mappedBy = "produto")
+    private List<OrdemCompraItem> ordemcompraitem = new ArrayList<>();
     
-    @OneToMany(mappedBy = "id.produto")
-	private Set<CotacaoCompraItemsPK> itens = new HashSet<>();
+    @OneToMany(mappedBy = "produto")
+    private List<NotaFiscalItem> notafiscalitem = new ArrayList<>();
     
     public Produto(Long id, String nome, String descrição, Integer quantidade, Integer estoque,Double preço) {
         this.id = id;
@@ -100,6 +99,14 @@ public class Produto implements Serializable {
 
     public List<CotacaoCompraItem> getCotacaocompraitens() {
 		return cotacaocompraitens;
+	}
+
+	public List<OrdemCompraItem> getOrdemcompraitem() {
+		return ordemcompraitem;
+	}
+
+	public List<NotaFiscalItem> getNotafiscalitem() {
+		return notafiscalitem;
 	}
 
 	@Override

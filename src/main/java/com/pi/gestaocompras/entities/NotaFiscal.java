@@ -1,7 +1,10 @@
 package com.pi.gestaocompras.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -29,22 +33,18 @@ public class NotaFiscal implements Serializable {
 	@JoinColumn(name = "fornecedor_id")
 	private Fornecedor fornecedor;
 
-//	private List<ItemDaNota> itensDaNota;
-
+	@OneToMany(mappedBy = "notafiscal")
+    private List<NotaFiscalItem> notafiscalitem = new ArrayList<>();
+    
 	public Long getId() {
 		return id;
 	}
 
-	/**
-	 * Este metodo inclui o item da nota na lista de itens (
-	 * <code>itensDaNota</code>) e recalcula o valor total da nota. Atribui um
-	 * número de item ao item incluido (sequencial).
-	 *
-	 * @param item
-	 */
-//	public void addItem(ItemDaNota item) {
-//
-//	}
+	@Override
+	public String toString() {
+		return "NotaFiscal [id=" + id + ", data=" + data + ", valorTotal=" + valorTotal + ", fornecedor=" + fornecedor
+				+ ", notafiscalitem=" + notafiscalitem + "]";
+	}
 
 	public void setId(Long id) {
 		this.id = id;
@@ -74,12 +74,27 @@ public class NotaFiscal implements Serializable {
 		this.fornecedor = fornecedor;
 	}
 
-//	public List<ItemDaNota> getItensDaNota() {
-//		return itensDaNota;
-//	}
-//
-//	public void setItensDaNota(List<ItemDaNota> itensDaNota) {
-//		this.itensDaNota = itensDaNota;
-//	}
+	public List<NotaFiscalItem> getNotafiscalitem() {
+		return notafiscalitem;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(data, fornecedor, id, notafiscalitem, valorTotal);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		NotaFiscal other = (NotaFiscal) obj;
+		return Objects.equals(data, other.data) && Objects.equals(fornecedor, other.fornecedor)
+				&& Objects.equals(id, other.id) && Objects.equals(notafiscalitem, other.notafiscalitem)
+				&& Objects.equals(valorTotal, other.valorTotal);
+	}
 
 }

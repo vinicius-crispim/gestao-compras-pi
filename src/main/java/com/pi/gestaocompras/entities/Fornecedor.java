@@ -37,7 +37,9 @@ public class Fornecedor implements Serializable {
 
     @OneToMany(mappedBy = "fornecedor")
     private List<OrdemCompra> ordenscompra = new ArrayList<OrdemCompra>();
-    
+    @OneToMany(mappedBy = "fornecedor")
+	private List<FornecedorCotacaoCompraItem> fornecedorcotacaocompraitem = new ArrayList<FornecedorCotacaoCompraItem>();
+
     public Fornecedor() {
     }
     
@@ -84,6 +86,10 @@ public class Fornecedor implements Serializable {
 
 	public List<OrdemCompra> getOrdenscompra() {
 		return ordenscompra;
+	}
+
+	public List<FornecedorCotacaoCompraItem> getFornecedorcotacaocompraitem() {
+		return fornecedorcotacaocompraitem;
 	}
 
 	@Override
