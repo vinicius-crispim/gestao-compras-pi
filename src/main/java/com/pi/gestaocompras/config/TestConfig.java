@@ -9,16 +9,22 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.pi.gestaocompras.entities.Cidade;
+import com.pi.gestaocompras.entities.CotacaoCompra;
+import com.pi.gestaocompras.entities.CotacaoCompraItem;
 import com.pi.gestaocompras.entities.Estado;
 import com.pi.gestaocompras.entities.Fornecedor;
 import com.pi.gestaocompras.entities.Funcionario;
+import com.pi.gestaocompras.entities.Gerente;
 import com.pi.gestaocompras.entities.NotaFiscal;
 import com.pi.gestaocompras.entities.OrdemCompra;
 import com.pi.gestaocompras.entities.Produto;
 import com.pi.gestaocompras.repositories.CidadeRepository;
+import com.pi.gestaocompras.repositories.CotacaoCompraItemRepository;
+import com.pi.gestaocompras.repositories.CotacaoCompraRepository;
 import com.pi.gestaocompras.repositories.EstadoRepository;
 import com.pi.gestaocompras.repositories.FornecedorRepository;
 import com.pi.gestaocompras.repositories.FuncionarioRepository;
+import com.pi.gestaocompras.repositories.GerenteRepository;
 import com.pi.gestaocompras.repositories.NotaFiscalRepository;
 import com.pi.gestaocompras.repositories.OrdemCompraRepository;
 import com.pi.gestaocompras.repositories.ProdutoRepository;
@@ -43,6 +49,12 @@ public class TestConfig implements  CommandLineRunner{
     private NotaFiscalRepository nfrepository;
     @Autowired
     private OrdemCompraRepository ocrepository;
+    @Autowired
+    private GerenteRepository gerenterepository;
+    @Autowired
+    private CotacaoCompraRepository cotacomrepository;
+    @Autowired
+    private CotacaoCompraItemRepository cotaitensrepository;
     
     @Override
 	public void run(String... args) throws Exception {
@@ -50,7 +62,7 @@ public class TestConfig implements  CommandLineRunner{
         p.setNome("Carro");
         p.setDescrição("descrição");
         p.setPreço(45000.0);
-        p.setQuantidade(5);
+        p.setQuantidademin(5);
         p.setEstoque(4);
         produtorepository.saveAll(Arrays.asList(p));
         Fornecedor f = new Fornecedor();
@@ -105,5 +117,26 @@ public class TestConfig implements  CommandLineRunner{
         ocrepository.save(oc);
         f.getOrdenscompra().add(oc);
         fornecedorrepository.save(f);
+        Gerente g = new Gerente();
+        g.setEmail("carlos@gmail.com");
+        g.setNome("Carlos");
+        g.setSenha("ca123");
+        g.getFuncionarios().add(func);
+        g.setTelefone("1324");
+        gerenterepository.save(g);
+        func.setGerente(g);
+        funcionariorepository.save(func);
+        CotacaoCompraItem cotaitens = new CotacaoCompraItem();
+        cotaitens.setFuncionario(func);
+        cotaitens.setMarca("BMW");
+        cotaitens.setProduto(p);
+        cotaitens.setQuantidade(2); 
+        cotaitensrepository.save(cotaitens);
+        CotacaoCompra coco = new CotacaoCompra();
+        coco.getCotacaocompraitem().add(cotaitens);
+        coco.setFornecedor(f);
+        cotacomrepository.save(coco);
+        cotaitens.setCotacaocompra(coco);
+        cotaitensrepository.save(cotaitens);
     }
 }

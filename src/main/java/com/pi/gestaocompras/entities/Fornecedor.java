@@ -39,6 +39,8 @@ public class Fornecedor implements Serializable {
     private List<OrdemCompra> ordenscompra = new ArrayList<OrdemCompra>();
     @OneToMany(mappedBy = "fornecedor")
 	private List<FornecedorCotacaoCompraItem> fornecedorcotacaocompraitem = new ArrayList<FornecedorCotacaoCompraItem>();
+    @OneToMany(mappedBy = "fornecedor")
+	private List<CotacaoCompra> cotacaocompra = new ArrayList<CotacaoCompra>();
 
     public Fornecedor() {
     }

@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
+	
 
 @Entity
 @Table(name = "tb_produto")
@@ -24,7 +24,7 @@ public class Produto implements Serializable {
     private Long id;
     private String nome;
     private String descrição;
-    private Integer quantidade;
+    private Integer quantidademin;
     private Integer estoque;
     private Double preço;
 
@@ -37,11 +37,11 @@ public class Produto implements Serializable {
     @OneToMany(mappedBy = "produto")
     private List<NotaFiscalItem> notafiscalitem = new ArrayList<>();
     
-    public Produto(Long id, String nome, String descrição, Integer quantidade, Integer estoque,Double preço) {
+    public Produto(Long id, String nome, String descrição, Integer quantidademin, Integer estoque,Double preço) {
         this.id = id;
         this.nome = nome;
         this.descrição = descrição;
-        this.quantidade = quantidade;
+        this.quantidademin = quantidademin;
         this.estoque = estoque;
         this.preço = preço;
     }
@@ -88,12 +88,12 @@ public class Produto implements Serializable {
         this.descrição = descrição;
     }
 
-    public Integer getQuantidade() {
-        return this.quantidade;
+    public Integer getQuantidademin() {
+        return this.quantidademin;
     }
 
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
+    public void setQuantidademin(Integer quantidademin) {
+        this.quantidademin = quantidademin;
     }
 
 
@@ -115,13 +115,13 @@ public class Produto implements Serializable {
             " id='" + getId() + "'" +
             ", nome='" + getNome() + "'" +
             ", descrição='" + getDescrição() + "'" +
-            ", quantidade='" + getQuantidade() + "'" +
+            ", quantidade='" + getQuantidademin() + "'" +
             "}";
     }
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(descrição, id, estoque, nome, preço, quantidade);
+		return Objects.hash(descrição, id, estoque, nome, preço, quantidademin);
 	}
 
 	@Override
@@ -135,7 +135,7 @@ public class Produto implements Serializable {
 		Produto other = (Produto) obj;
 		return Objects.equals(descrição, other.descrição) && Objects.equals(id, other.id)
 				&& Objects.equals(estoque, other.estoque) && Objects.equals(nome, other.nome)
-				&& Objects.equals(preço, other.preço) && Objects.equals(quantidade, other.quantidade);
+				&& Objects.equals(preço, other.preço) && Objects.equals(quantidademin, other.quantidademin);
 	}
     
 
