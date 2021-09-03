@@ -21,33 +21,24 @@ public class CotacaoCompra implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-//	( name = "MY_TESTE",
-//	        joinColumns = @JoinColumn(
-//	                name = "COTACAOCOMPRAITEM_ID",
-//	                referencedColumnName = "COTACAOCOMPRAITEM_ID"
-//	        ),
-//	        inverseJoinColumns = @JoinColumn(
-//	                name = "TASK_ID",
-//	                referencedColumnName = "TID"
-//	        ))
-//	(mappedBy = "cotacaocompra")
-	@JoinTable
-	@OneToMany
-	private List<CotacaoCompraItem> cotacaocompraitem = new ArrayList<>();
+
+	@OneToMany(mappedBy = "id.cotacaocompra")
+	private List<CotacaoCompraItem> cotacaocompraitens = new ArrayList<>();
+
 	@ManyToOne
 	@JoinColumn(name = "fornecedor_id")
 	private Fornecedor fornecedor;
-	
-	public CotacaoCompra() {}
-	
+
+	public CotacaoCompra() {
+	}
+
 	public CotacaoCompra(Long id) {
 		this.id = id;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -65,12 +56,12 @@ public class CotacaoCompra implements Serializable {
 	}
 
 	public List<CotacaoCompraItem> getCotacaocompraitem() {
-		return cotacaocompraitem;
+		return cotacaocompraitens;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cotacaocompraitem, fornecedor, id);
+		return Objects.hash(cotacaocompraitens, fornecedor, id);
 	}
 
 	@Override
@@ -82,8 +73,8 @@ public class CotacaoCompra implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		CotacaoCompra other = (CotacaoCompra) obj;
-		return Objects.equals(cotacaocompraitem, other.cotacaocompraitem)
+		return Objects.equals(cotacaocompraitens, other.cotacaocompraitens)
 				&& Objects.equals(fornecedor, other.fornecedor) && Objects.equals(id, other.id);
 	}
-	
+
 }

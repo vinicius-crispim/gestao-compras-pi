@@ -1,6 +1,8 @@
 package com.pi.gestaocompras.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,18 +30,13 @@ public class FornecedorCotacaoCompraItem implements Serializable {
 	@JoinColumn(name = "fornecedor_id")
 	private Fornecedor fornecedor;
 	
-	@ManyToOne
-	@JoinColumn(name = "cotacaocompraitem_id")
-	private CotacaoCompraItem cotacaocompraitem;
-
+	
 	public FornecedorCotacaoCompraItem() {}
 	
-	public FornecedorCotacaoCompraItem(Long id, Double preco, Fornecedor fornecedor,
-			CotacaoCompraItem cotacaocompraitem) {
+	public FornecedorCotacaoCompraItem(Long id, Double preco, Fornecedor fornecedor) {
 		this.id = id;
 		this.preco = preco;
 		this.fornecedor = fornecedor;
-		this.cotacaocompraitem = cotacaocompraitem;
 	}
 
 	public Long getId() {
@@ -65,17 +63,10 @@ public class FornecedorCotacaoCompraItem implements Serializable {
 		this.fornecedor = fornecedor;
 	}
 
-	public CotacaoCompraItem getCotacaocompraitem() {
-		return cotacaocompraitem;
-	}
-
-	public void setCotacaocompraitem(CotacaoCompraItem cotacaocompraitem) {
-		this.cotacaocompraitem = cotacaocompraitem;
-	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cotacaocompraitem, fornecedor, id, preco);
+		return Objects.hash(fornecedor, id, preco);
 	}
 
 	@Override
@@ -87,8 +78,8 @@ public class FornecedorCotacaoCompraItem implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		FornecedorCotacaoCompraItem other = (FornecedorCotacaoCompraItem) obj;
-		return Objects.equals(cotacaocompraitem, other.cotacaocompraitem)
-				&& Objects.equals(fornecedor, other.fornecedor) && Objects.equals(id, other.id)
+		return 
+				Objects.equals(fornecedor, other.fornecedor) && Objects.equals(id, other.id)
 				&& Objects.equals(preco, other.preco);
 	}
 }

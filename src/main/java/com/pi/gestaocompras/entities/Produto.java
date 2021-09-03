@@ -27,8 +27,8 @@ public class Produto implements Serializable {
     private Integer quantidademin;
     private Integer estoque;
     private Double preço;
-
-    @OneToMany(mappedBy = "produto")
+    
+    @OneToMany(mappedBy = "id.produto")
     private List<CotacaoCompraItem> cotacaocompraitens = new ArrayList<>();
 
     @OneToMany(mappedBy = "produto")

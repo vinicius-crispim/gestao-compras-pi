@@ -32,10 +32,10 @@ public class Funcionario implements Serializable {
     @ManyToOne
     @JoinColumn(name = "gerente_id")
     private Gerente gerente;
-    
-    @OneToMany(mappedBy = "funcionario")
-    private List<CotacaoCompraItem> cotacaocompraitens = new ArrayList<>();
-    
+
+	@OneToMany(mappedBy = "id.funcionario")
+	private List<CotacaoCompraItem> cotacaocompraitens = new ArrayList<>();
+	
     public Funcionario() {}
     
     public Funcionario(Long id, String nome, String senha, String email, String telefone, Gerente gerente) {

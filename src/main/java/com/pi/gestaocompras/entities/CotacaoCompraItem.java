@@ -5,14 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.pi.gestaocompras.entities.pk.CotacaoCompraItemPK;
 
 @Entity
 @Table(name = "tb_cotacaocompraitem")
@@ -20,46 +18,23 @@ public class CotacaoCompraItem implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@EmbeddedId
+	private CotacaoCompraItemPK id = new CotacaoCompraItemPK();
 
 	private Integer quantidade;
 
 	private String marca;
 
-	@ManyToOne
-	@JoinColumn(name = "produto_id")
-	private Produto produto;
-	@ManyToOne
-	@JoinColumn(name = "funcionario_id")
-	private Funcionario funcionario;
-	@ManyToOne
-	@JoinColumn(name = "gerente_id")
-	private Gerente gerente;
-	@ManyToOne
-	@JoinColumn(name = "cotacaocompra_id")
-	private CotacaoCompra cotacaocompra;
-	@OneToMany(mappedBy = "cotacaocompraitem")
-	private List<FornecedorCotacaoCompraItem> fornecedorcotacaocompraitem = new ArrayList<FornecedorCotacaoCompraItem>();
-
 	public CotacaoCompraItem() {
 	}
 
-	public CotacaoCompraItem(Long id, Integer quantidade, String marca, Produto produto, CotacaoCompra cotacaocompra) {
-		this.id = id;
+	public CotacaoCompraItem(Integer quantidade, String marca, Produto produto, CotacaoCompra cotacaocompra, Funcionario funcionario, Gerente gerente) {
 		this.quantidade = quantidade;
 		this.marca = marca;
-		this.produto = produto;
-		this.cotacaocompra = cotacaocompra;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+		id.setCotacaocompra(cotacaocompra);
+		id.setFuncionario(funcionario);
+		id.setGerente(gerente);
+		id.setProduto(produto);
 	}
 
 	public Integer getQuantidade() {
@@ -79,50 +54,40 @@ public class CotacaoCompraItem implements Serializable {
 	}
 
 	public Produto getProduto() {
-		return produto;
+		return id.getProduto();
 	}
 
 	public void setProduto(Produto produto) {
-		this.produto = produto;
+		id.setProduto(produto);;;
 	}
 
-	public CotacaoCompra getCotacaocompra() {
-		return cotacaocompra;
-	}
-
-	public void setCotacaocompra(CotacaoCompra cotacaocompra) {
-		this.cotacaocompra = cotacaocompra;
-	}
-
-	public List<FornecedorCotacaoCompraItem> getFornecedorcotacaocompraitem() {
-		return fornecedorcotacaocompraitem;
-	}
-
+	
 	public Funcionario getFuncionario() {
-		return funcionario;
+		return id.getFuncionario();
 	}
 
 	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
+		id.setFuncionario(funcionario);
 	}
-
 	public Gerente getGerente() {
-		return gerente;
+		return id.getGerente();
 	}
 
 	public void setGerente(Gerente gerente) {
-		this.gerente = gerente;
+		id.setGerente(gerente);
+	}
+	
+	public CotacaoCompra getCotacaoCompra() {
+		return id.getCotacaocompra();
 	}
 
-	@Override
-	public String toString() {
-		return "CotacaoCompraItem [id=" + id + ", quantidade=" + quantidade + ", marca=" + marca + ", produto="
-				+ produto + ", cotacaocompra=" + cotacaocompra + "]";
+	public void setCotacaoCompra(CotacaoCompra cotacaoCompra) {
+		id.setCotacaocompra(cotacaoCompra);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cotacaocompra, id, marca, produto, quantidade);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -134,9 +99,8 @@ public class CotacaoCompraItem implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		CotacaoCompraItem other = (CotacaoCompraItem) obj;
-		return Objects.equals(cotacaocompra, other.cotacaocompra) && Objects.equals(id, other.id)
-				&& Objects.equals(marca, other.marca) && Objects.equals(produto, other.produto)
-				&& Objects.equals(quantidade, other.quantidade);
+		return Objects.equals(id, other.id);
 	}
+
 
 }

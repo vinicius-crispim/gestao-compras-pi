@@ -28,9 +28,9 @@ public class Gerente implements Serializable {
     
     @OneToMany(mappedBy = "gerente")
     private List<Funcionario> funcionarios = new ArrayList<>();
-    @OneToMany(mappedBy = "gerente")
-    private List<CotacaoCompraItem> cotacaocompraitem = new ArrayList<>();
-	
+    @OneToMany(mappedBy = "id.gerente")
+    private List<CotacaoCompraItem> cotacaocompraitens = new ArrayList<>();
+
     public Gerente() {}
     
     public Gerente(Long id, String nome, String senha, String email, String telefone) {
@@ -90,7 +90,7 @@ public class Gerente implements Serializable {
 	}
 
 	public List<CotacaoCompraItem> getCotacaocompraitem() {
-		return cotacaocompraitem;
+		return cotacaocompraitens;
 	}
 
 	@Override

@@ -126,17 +126,16 @@ public class TestConfig implements  CommandLineRunner{
         gerenterepository.save(g);
         func.setGerente(g);
         funcionariorepository.save(func);
-        CotacaoCompraItem cotaitens = new CotacaoCompraItem();
-        cotaitens.setFuncionario(func);
-        cotaitens.setMarca("BMW");
-        cotaitens.setProduto(p);
-        cotaitens.setQuantidade(2); 
-        cotaitensrepository.save(cotaitens);
         CotacaoCompra coco = new CotacaoCompra();
-        coco.getCotacaocompraitem().add(cotaitens);
         coco.setFornecedor(f);
         cotacomrepository.save(coco);
-        cotaitens.setCotacaocompra(coco);
+        CotacaoCompraItem cotaitens = new CotacaoCompraItem(2,"BMW",p,coco,func,g);
+//        cotaitens.setFuncionario(func);
+//        cotaitens.setGerente(g);
+//        cotaitens.setMarca("BMW");
+//        cotaitens.setProduto(p);
+//        cotaitens.setQuantidade(2); 
         cotaitensrepository.save(cotaitens);
+        coco.getCotacaocompraitem().add(cotaitens);
     }
 }
