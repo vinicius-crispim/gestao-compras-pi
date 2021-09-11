@@ -27,6 +27,10 @@ public class Fornecedor implements Serializable {
 
     private String nome;
     private String cnpj;
+    private String login;
+    private String senha;
+    
+    private String email;
     
     @ManyToOne
     @JoinColumn(name = "cidade_id")
@@ -45,11 +49,14 @@ public class Fornecedor implements Serializable {
     public Fornecedor() {
     }
     
-    public Fornecedor(Long id, String nome, String cnpj, Cidade cidade) {
+    public Fornecedor(Long id, String nome,String login,String senha, String cnpj,String email, Cidade cidade) {
         this.id = id;
         this.nome = nome;
         this.cnpj = cnpj;
         this.cidade = cidade;
+        this.login = login;
+        this.senha = senha;
+        this.email=email;
     }
 
     public Long getId() {
@@ -92,6 +99,26 @@ public class Fornecedor implements Serializable {
 
 	public List<FornecedorCotacaoCompraItem> getFornecedorcotacaocompraitem() {
 		return fornecedorcotacaocompraitem;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public List<CotacaoCompra> getCotacaocompra() {
+		return cotacaocompra;
 	}
 
 	@Override

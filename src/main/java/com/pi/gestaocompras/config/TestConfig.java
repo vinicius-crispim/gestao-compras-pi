@@ -16,7 +16,9 @@ import com.pi.gestaocompras.entities.Fornecedor;
 import com.pi.gestaocompras.entities.Funcionario;
 import com.pi.gestaocompras.entities.Gerente;
 import com.pi.gestaocompras.entities.NotaFiscal;
+import com.pi.gestaocompras.entities.NotaFiscalItem;
 import com.pi.gestaocompras.entities.OrdemCompra;
+import com.pi.gestaocompras.entities.OrdemCompraItem;
 import com.pi.gestaocompras.entities.Produto;
 import com.pi.gestaocompras.repositories.CidadeRepository;
 import com.pi.gestaocompras.repositories.CotacaoCompraItemRepository;
@@ -25,7 +27,9 @@ import com.pi.gestaocompras.repositories.EstadoRepository;
 import com.pi.gestaocompras.repositories.FornecedorRepository;
 import com.pi.gestaocompras.repositories.FuncionarioRepository;
 import com.pi.gestaocompras.repositories.GerenteRepository;
+import com.pi.gestaocompras.repositories.NotaFiscalItemRepository;
 import com.pi.gestaocompras.repositories.NotaFiscalRepository;
+import com.pi.gestaocompras.repositories.OrdemCompraItemRepository;
 import com.pi.gestaocompras.repositories.OrdemCompraRepository;
 import com.pi.gestaocompras.repositories.ProdutoRepository;
 
@@ -48,7 +52,11 @@ public class TestConfig implements  CommandLineRunner{
     @Autowired
     private NotaFiscalRepository nfrepository;
     @Autowired
+    private NotaFiscalItemRepository nfitemrepository;
+    @Autowired
     private OrdemCompraRepository ocrepository;
+    @Autowired
+    private OrdemCompraItemRepository ocitemrepository;
     @Autowired
     private GerenteRepository gerenterepository;
     @Autowired
@@ -129,13 +137,14 @@ public class TestConfig implements  CommandLineRunner{
         CotacaoCompra coco = new CotacaoCompra();
         coco.setFornecedor(f);
         cotacomrepository.save(coco);
-        CotacaoCompraItem cotaitens = new CotacaoCompraItem(2,"BMW",p,coco,func,g);
-//        cotaitens.setFuncionario(func);
-//        cotaitens.setGerente(g);
-//        cotaitens.setMarca("BMW");
-//        cotaitens.setProduto(p);
-//        cotaitens.setQuantidade(2); 
+        CotacaoCompraItem cotaitens =  new CotacaoCompraItem(2,"BMW",p,coco,func,g); 
         cotaitensrepository.save(cotaitens);
         coco.getCotacaocompraitem().add(cotaitens);
+        func.setNome("Davi Lima");
+        funcionariorepository.save(func);
+        OrdemCompraItem ordemcompraitens = new OrdemCompraItem(4,4500.0,p,oc);
+        ocitemrepository.save(ordemcompraitens);
+        NotaFiscalItem notafiscalitem = new NotaFiscalItem(4,4500.0,p,nf);
+        nfitemrepository.save(notafiscalitem);
     }
 }

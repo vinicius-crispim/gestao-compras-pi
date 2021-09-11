@@ -3,6 +3,7 @@ package com.pi.gestaocompras.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,44 +12,29 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.pi.gestaocompras.entities.pk.NotaFiscalItemPK;
+
 @Entity
 @Table(name = "tb_notafiscalitem")
 public class NotaFiscalItem implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@EmbeddedId
+	private NotaFiscalItemPK id = new NotaFiscalItemPK();
 
 	private Integer quantidade;
 
 	private Double precoitem;
 
-	@ManyToOne
-	@JoinColumn(name = "produto_id")
-	private Produto produto;
-	@ManyToOne
-	@JoinColumn(name = "notafiscal_id")
-	private NotaFiscal notafiscal;
-
 	public NotaFiscalItem() {
 	}
 
-	public NotaFiscalItem(Long id, Integer quantidade, Double precoitem, Produto produto, NotaFiscal notafiscal) {
-		this.id = id;
+	public NotaFiscalItem(Integer quantidade, Double precoitem, Produto produto, NotaFiscal notafiscal) {
 		this.quantidade = quantidade;
 		this.precoitem = precoitem;
-		this.produto = produto;
-		this.notafiscal = notafiscal;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+		id.setNotafiscal(notafiscal);
+		id.setProduto(produto);
 	}
 
 	public Integer getQuantidade() {
@@ -67,22 +53,6 @@ public class NotaFiscalItem implements Serializable {
 		this.precoitem = precoitem;
 	}
 
-	public Produto getProduto() {
-		return produto;
-	}
-
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
-
-	public NotaFiscal getNotaFiscal() {
-		return notafiscal;
-	}
-
-	public void setNotafiscal(NotaFiscal notafiscal) {
-		this.notafiscal = notafiscal;
-	}
-
 	public Double getPrecoitem() {
 		return precoitem;
 	}
@@ -91,19 +61,25 @@ public class NotaFiscalItem implements Serializable {
 		this.precoitem = precoitem;
 	}
 
-	public NotaFiscal getNotafiscal() {
-		return notafiscal;
+	public Produto getProduto() {
+		return id.getProduto();
 	}
-
-	@Override
-	public String toString() {
-		return "CotacaoCompraItem [id=" + id + ", quantidade=" + quantidade + ", preço=" + precoitem + ", produto="
-				+ produto + ", notafiscal=" + notafiscal + "]";
+	
+	public void setProduto(Produto produto) {
+		id.setProduto(produto);
+	}
+	
+	public NotaFiscal getNotafiscal() {
+		return id.getNotafiscal();
+	}
+	
+	public void setNotaFiscal(NotaFiscal notafiscal) {
+		id.setNotafiscal(notafiscal);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(notafiscal, id, precoitem, produto, quantidade);
+		return Objects.hash(id, precoitem, quantidade);
 	}
 
 	@Override
@@ -115,8 +91,9 @@ public class NotaFiscalItem implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		NotaFiscalItem other = (NotaFiscalItem) obj;
-		return Objects.equals(notafiscal, other.notafiscal) && Objects.equals(id, other.id)
-				&& Objects.equals(precoitem, other.precoitem) && Objects.equals(produto, other.produto)
+		return Objects.equals(id, other.id) && Objects.equals(precoitem, other.precoitem)
 				&& Objects.equals(quantidade, other.quantidade);
 	}
+
+	
 }

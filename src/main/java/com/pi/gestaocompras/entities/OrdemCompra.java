@@ -33,7 +33,7 @@ public class OrdemCompra implements Serializable {
 	@JoinColumn(name = "fornecedor_id")
 	private Fornecedor fornecedor;
 	
-	@OneToMany(mappedBy = "ordemcompra")
+	@OneToMany(mappedBy = "id.ordemcompra")
 	private List<OrdemCompraItem> ordemcompraitem = new ArrayList<>();
 	
 	public OrdemCompra() {}

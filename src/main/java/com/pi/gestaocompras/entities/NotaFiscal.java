@@ -33,7 +33,7 @@ public class NotaFiscal implements Serializable {
 	@JoinColumn(name = "fornecedor_id")
 	private Fornecedor fornecedor;
 
-	@OneToMany(mappedBy = "notafiscal")
+	@OneToMany(mappedBy = "id.notafiscal")
     private List<NotaFiscalItem> notafiscalitem = new ArrayList<>();
     
 	public Long getId() {

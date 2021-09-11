@@ -31,10 +31,10 @@ public class Produto implements Serializable {
     @OneToMany(mappedBy = "id.produto")
     private List<CotacaoCompraItem> cotacaocompraitens = new ArrayList<>();
 
-    @OneToMany(mappedBy = "produto")
+    @OneToMany(mappedBy = "id.produto")
     private List<OrdemCompraItem> ordemcompraitem = new ArrayList<>();
     
-    @OneToMany(mappedBy = "produto")
+    @OneToMany(mappedBy = "id.produto")
     private List<NotaFiscalItem> notafiscalitem = new ArrayList<>();
     
     public Produto(Long id, String nome, String descrição, Integer quantidademin, Integer estoque,Double preço) {

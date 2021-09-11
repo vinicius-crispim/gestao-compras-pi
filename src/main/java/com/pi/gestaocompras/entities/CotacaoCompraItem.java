@@ -58,7 +58,7 @@ public class CotacaoCompraItem implements Serializable {
 	}
 
 	public void setProduto(Produto produto) {
-		id.setProduto(produto);;;
+		id.setProduto(produto);
 	}
 
 	

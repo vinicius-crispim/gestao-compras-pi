@@ -3,6 +3,7 @@ package com.pi.gestaocompras.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,44 +12,29 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.pi.gestaocompras.entities.pk.OrdemCompraItemPK;
+
 @Entity
 @Table(name = "tb_ordemcompraitem")
 public class OrdemCompraItem implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@EmbeddedId
+	private OrdemCompraItemPK id = new OrdemCompraItemPK();
 
 	private Integer quantidade;
 
 	private Double precoitem;
 
-	@ManyToOne
-	@JoinColumn(name = "produto_id")
-	private Produto produto;
-	@ManyToOne
-	@JoinColumn(name = "ordemcompra_id")
-	private OrdemCompra ordemcompra;
-
 	public OrdemCompraItem() {
 	}
 
-	public OrdemCompraItem(Long id, Integer quantidade, Double precoitem, Produto produto, OrdemCompra ordemcompra) {
-		this.id = id;
+	public OrdemCompraItem(Integer quantidade, Double precoitem, Produto produto, OrdemCompra ordemcompra) {
 		this.quantidade = quantidade;
-		this.produto = produto;
-		this.ordemcompra = ordemcompra;
 		this.precoitem = precoitem;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+		id.setOrdemcompra(ordemcompra);
+		id.setProduto(produto);
 	}
 
 	public Integer getQuantidade() {
@@ -59,30 +45,6 @@ public class OrdemCompraItem implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	public Double getPreco() {
-		return precoitem;
-	}
-
-	public void setPreco(Double precoitem) {
-		this.precoitem = precoitem;
-	}
-
-	public Produto getProduto() {
-		return produto;
-	}
-
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
-
-	public OrdemCompra getOrdemcompra() {
-		return ordemcompra;
-	}
-
-	public void setOrdemcompra(OrdemCompra ordemcompra) {
-		this.ordemcompra = ordemcompra;
-	}
-
 	public Double getPrecoitem() {
 		return precoitem;
 	}
@@ -91,15 +53,25 @@ public class OrdemCompraItem implements Serializable {
 		this.precoitem = precoitem;
 	}
 
-	@Override
-	public String toString() {
-		return "CotacaoCompraItem [id=" + id + ", quantidade=" + quantidade + ", preço=" + precoitem + ", produto="
-				+ produto + ", cotacaocompra=" + ordemcompra + "]";
+	public Produto getProduto() {
+		return id.getProduto();
+	}
+	
+	public void setProduto(Produto produto) {
+		id.setProduto(produto);
+	}
+	
+	public OrdemCompra getOrdemCompra() {
+		return id.getOrdemcompra();
+	}
+	
+	public void setOrdemCompra(OrdemCompra ordemcompra) {
+		id.setOrdemcompra(ordemcompra);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(ordemcompra, id, precoitem, produto, quantidade);
+		return Objects.hash(id, precoitem, quantidade);
 	}
 
 	@Override
@@ -111,8 +83,7 @@ public class OrdemCompraItem implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		OrdemCompraItem other = (OrdemCompraItem) obj;
-		return Objects.equals(ordemcompra, other.ordemcompra) && Objects.equals(id, other.id)
-				&& Objects.equals(precoitem, other.precoitem) && Objects.equals(produto, other.produto)
+		return Objects.equals(id, other.id) && Objects.equals(precoitem, other.precoitem)
 				&& Objects.equals(quantidade, other.quantidade);
 	}
 }

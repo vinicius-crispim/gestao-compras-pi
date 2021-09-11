@@ -27,6 +27,7 @@ public class Funcionario implements Serializable {
     private String nome;
     private String senha;
     private String email;
+    private String login;
     private String telefone;
 
     @ManyToOne
@@ -38,13 +39,14 @@ public class Funcionario implements Serializable {
 	
     public Funcionario() {}
     
-    public Funcionario(Long id, String nome, String senha, String email, String telefone, Gerente gerente) {
+    public Funcionario(Long id, String nome, String senha, String email, String telefone, Gerente gerente, String login) {
 		this.id = id;
 		this.nome = nome;
 		this.senha = senha;
 		this.email = email;
 		this.telefone = telefone;
 		this.gerente = gerente;
+		this.login=login;
 	}
 
 	
@@ -99,9 +101,17 @@ public class Funcionario implements Serializable {
 		return cotacaocompraitens;
 	}
 
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(cotacaocompraitens, email, gerente, id, login, nome, senha, telefone);
 	}
 
 	@Override
@@ -113,13 +123,10 @@ public class Funcionario implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Funcionario other = (Funcionario) obj;
-		return Objects.equals(id, other.id);
-	}
-
-	@Override
-	public String toString() {
-		return "Funcionario [id=" + id + ", nome=" + nome + ", senha=" + senha + ", email=" + email + ", telefone="
-				+ telefone + "]";
+		return Objects.equals(cotacaocompraitens, other.cotacaocompraitens) && Objects.equals(email, other.email)
+				&& Objects.equals(gerente, other.gerente) && Objects.equals(id, other.id)
+				&& Objects.equals(login, other.login) && Objects.equals(nome, other.nome)
+				&& Objects.equals(senha, other.senha) && Objects.equals(telefone, other.telefone);
 	}
 
 }
