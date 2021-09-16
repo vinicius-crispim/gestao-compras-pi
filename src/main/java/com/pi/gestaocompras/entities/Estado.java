@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tb_estado")
 public class Estado implements Serializable {
@@ -49,7 +51,7 @@ public class Estado implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
+	@JsonIgnore
 	public List<Cidade> getCidades() {
 		return cidades;
 	}

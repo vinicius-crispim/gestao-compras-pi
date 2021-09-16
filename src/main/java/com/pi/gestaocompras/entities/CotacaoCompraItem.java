@@ -1,15 +1,13 @@
 package com.pi.gestaocompras.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pi.gestaocompras.entities.pk.CotacaoCompraItemPK;
 
 @Entity
@@ -20,7 +18,7 @@ public class CotacaoCompraItem implements Serializable {
 
 	@EmbeddedId
 	private CotacaoCompraItemPK id = new CotacaoCompraItemPK();
-
+	
 	private Integer quantidade;
 
 	private String marca;
@@ -69,6 +67,7 @@ public class CotacaoCompraItem implements Serializable {
 	public void setFuncionario(Funcionario funcionario) {
 		id.setFuncionario(funcionario);
 	}
+	
 	public Gerente getGerente() {
 		return id.getGerente();
 	}
@@ -76,7 +75,7 @@ public class CotacaoCompraItem implements Serializable {
 	public void setGerente(Gerente gerente) {
 		id.setGerente(gerente);
 	}
-	
+	@JsonIgnore
 	public CotacaoCompra getCotacaoCompra() {
 		return id.getCotacaocompra();
 	}
@@ -84,7 +83,7 @@ public class CotacaoCompraItem implements Serializable {
 	public void setCotacaoCompra(CotacaoCompra cotacaoCompra) {
 		id.setCotacaocompra(cotacaoCompra);
 	}
-
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

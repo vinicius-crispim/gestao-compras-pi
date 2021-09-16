@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pi.gestaocompras.entities.pk.NotaFiscalItemPK;
 
 @Entity
@@ -68,7 +69,7 @@ public class NotaFiscalItem implements Serializable {
 	public void setProduto(Produto produto) {
 		id.setProduto(produto);
 	}
-	
+	@JsonIgnore
 	public NotaFiscal getNotafiscal() {
 		return id.getNotafiscal();
 	}

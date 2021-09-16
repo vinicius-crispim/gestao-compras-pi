@@ -1,7 +1,8 @@
 package com.pi.gestaocompras.repositories;
-import org.springframework.data.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import com.pi.gestaocompras.entities.Gerente;
 
-public interface GerenteRepository extends CrudRepository<Gerente,Long> {
+public interface GerenteRepository extends JpaRepository<Gerente,Long> {
     
 }

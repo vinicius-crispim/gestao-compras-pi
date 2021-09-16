@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tb_gerente")
 public class Gerente implements Serializable {
@@ -23,6 +25,7 @@ public class Gerente implements Serializable {
 
     private String nome;
     private String senha;
+    private String login;
     private String email;
     private String telefone;
     
@@ -33,7 +36,7 @@ public class Gerente implements Serializable {
 
     public Gerente() {}
     
-    public Gerente(Long id, String nome, String senha, String email, String telefone) {
+    public Gerente(Long id, String nome, String senha, String login, String email, String telefone) {
 		this.id = id;
 		this.nome = nome;
 		this.senha = senha;
@@ -84,13 +87,21 @@ public class Gerente implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
+	@JsonIgnore
 	public List<Funcionario> getFuncionarios() {
 		return funcionarios;
 	}
-
+	@JsonIgnore
 	public List<CotacaoCompraItem> getCotacaocompraitem() {
 		return cotacaocompraitens;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
 	@Override

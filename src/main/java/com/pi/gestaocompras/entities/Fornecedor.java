@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "tb_fornecedor")
@@ -82,21 +84,30 @@ public class Fornecedor implements Serializable {
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
-
+    
     public Cidade getCidade() {
 		return cidade;
 	}
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
 	}
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@JsonIgnore
 	public List<NotaFiscal> getNotasfiscais() {
 		return notasfiscais;
 	}
-
+	@JsonIgnore
 	public List<OrdemCompra> getOrdenscompra() {
 		return ordenscompra;
 	}
-
+	@JsonIgnore
 	public List<FornecedorCotacaoCompraItem> getFornecedorcotacaocompraitem() {
 		return fornecedorcotacaocompraitem;
 	}
@@ -116,7 +127,7 @@ public class Fornecedor implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
+	@JsonIgnore
 	public List<CotacaoCompra> getCotacaocompra() {
 		return cotacaocompra;
 	}

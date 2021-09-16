@@ -8,7 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.pi.gestaocompras.entities.CotacaoCompra;
-import com.pi.gestaocompras.entities.FornecedorCotacaoCompraItem;
 import com.pi.gestaocompras.entities.Funcionario;
 import com.pi.gestaocompras.entities.Gerente;
 import com.pi.gestaocompras.entities.Produto;

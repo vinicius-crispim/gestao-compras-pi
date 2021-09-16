@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "tb_cidade")
@@ -26,6 +28,7 @@ public class Cidade implements Serializable {
 
     private String nome;
 
+    
     @OneToMany(mappedBy = "cidade")
     private List<Fornecedor> fornecedores = new ArrayList<>();
 
@@ -56,7 +59,7 @@ public class Cidade implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
+	@JsonIgnore
 	public List<Fornecedor> getFornecedores() {
 		return fornecedores;
 	}

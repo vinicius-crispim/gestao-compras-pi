@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pi.gestaocompras.entities.pk.OrdemCompraItemPK;
 
 @Entity
@@ -60,7 +61,7 @@ public class OrdemCompraItem implements Serializable {
 	public void setProduto(Produto produto) {
 		id.setProduto(produto);
 	}
-	
+	@JsonIgnore
 	public OrdemCompra getOrdemCompra() {
 		return id.getOrdemcompra();
 	}

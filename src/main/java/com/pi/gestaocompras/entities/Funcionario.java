@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "tb_funcionario")
@@ -89,6 +91,7 @@ public class Funcionario implements Serializable {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
+	@JsonIgnore
 	public Gerente getGerente() {
 		return gerente;
 	}
@@ -96,7 +99,7 @@ public class Funcionario implements Serializable {
 	public void setGerente(Gerente gerente) {
 		this.gerente = gerente;
 	}
-
+	@JsonIgnore
 	public List<CotacaoCompraItem> getCotacaocompraitens() {
 		return cotacaocompraitens;
 	}

@@ -1,11 +1,12 @@
 package com.pi.gestaocompras.repositories;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
 import com.pi.gestaocompras.entities.Produto;
-import org.springframework.data.repository.*;
 
 
 @Repository
-public interface ProdutoRepository extends CrudRepository<Produto, Long> {
+public interface ProdutoRepository extends JpaRepository<Produto, Long> {
     
 }
